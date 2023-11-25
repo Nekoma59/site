@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: DM Sans;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #131c31;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(#10ac84, #131c31);
+  border-radius: 10px;
+}
+
+/* Modal */
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* Hauteur de la modale */
+}
+
+.modal-content {
+  max-width: 80%;
+  /* Largeur maximale de la modale */
+  padding: 20px;
+  /* background-color: #131c31; */
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* Style pour la modale */
+.edit-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #131c31;
+  border-radius: 8px;
+  border: 5px solid #ffffff;
+  width: 80%;
+  /* Largeur de la modale */
+  max-width: 900px;
+  /* Largeur maximale */
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  /* Assurez-vous que la modale s'affiche au-dessus du contenu */
+}
+
+/* Style pour les champs de formulaire dans la modale */
+.edit-modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style pour les boutons dans la modale */
+.edit-modal button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #10ac84;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.edit-modal button:last-child {
+  margin-right: 0;
+}
+
+/* Style pour les libellés (labels) dans la modale */
+.edit-modal label {
+  color: #10ac84;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Formulaire d'ajout de projet */
+.centered-form {
+  margin-top: 100px;
+  /* Centrer horizontalement */
+  margin-bottom: -100px;
+  display: flex;
+  justify-content: justify-center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  /* Aligner le texte à gauche */
+  max-width: 50%;
+  /* Utilisez la largeur maximale disponible */
+  padding: 20px;
+  /* Ajoutez de l'espace autour du formulaire */
+  border: 5px solid #ccc;
+}
+
+.column-layout label {
+  color: #10ac84;
+  font-weight: bold;
+}
+
+.column-layout input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style pour les boutons dans la modale */
+.column-layout button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #10ac84;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+/* CSS pour la boîte de dialogue de confirmation de suppression */
+.delete-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); Arrière-plan semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Assurez-vous que la boîte de dialogue s'affiche au-dessus de tout le reste */
+}
+
+.delete-confirmation-modal div {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.delete-confirmation-modal p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.delete-confirmation-modal button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ff5555;
+  /* Couleur de fond du bouton de confirmation */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-confirmation-modal button:hover {
+  background-color: #cc0000;
+  /* Couleur de fond du bouton de confirmation au survol */
+}
+
+.delete-confirmation-modal button:last-child {
+  background-color: #ddd;
+  /* Couleur de fond du bouton d'annulation */
+  color: #333;
+}
+
+.delete-confirmation-modal button:last-child:hover {
+  background-color: #aaa;
+  /* Couleur de fond du bouton d'annulation au survol */
+}
+
+/* Styles for the "Mettre à jour" button */
+.update-button {
+  display: inline-block;
+  width: max-content;
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  background-color: #131c31;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.5rem 1rem;
+}
+
+.update-button:hover {
+  color: #131c31;
+  background-color: white;
+}
+
+.form-skill {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-skill {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
+/* Formulaire modifier un skill */
+.input-text {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.input-text label {
+  margin-top: 10px;
+  color: #10ac84;
+  font-size: 14px;
+}
+
+/* Taille des previews d'icônes des skills*/
+.icon-preview {
+  max-width: 70px;
+  max-height: 70px;
+}
+
+/* Tailles des previews d'images des projets */
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+}

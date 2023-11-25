@@ -1,0 +1,48 @@
+DROP TABLE IF EXISTS admin ;
+CREATE TABLE admin (id_admin INT AUTO_INCREMENT NOT NULL,
+email_admin VARCHAR(255),
+password_admin VARCHAR(255),
+PRIMARY KEY (id_admin)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS home ;
+CREATE TABLE home (id_home INT AUTO_INCREMENT NOT NULL,
+heading_home VARCHAR(255),
+PRIMARY KEY (id_home)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Skills ;
+CREATE TABLE Skills (id_Skills INT AUTO_INCREMENT NOT NULL,
+icons_Skills VARCHAR(255),
+title_Skills VARCHAR(255),
+heading_Skills VARCHAR(255),
+paratext_Skills VARCHAR(255),
+PRIMARY KEY (id_Skills)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS projects ;
+CREATE TABLE projects (id_Projects INT AUTO_INCREMENT NOT NULL,
+title_projects VARCHAR(255),
+heading_projects VARCHAR(255),
+title_projects_projects VARCHAR(255),
+tech_projects VARCHAR(255),
+description_projects VARCHAR(255),
+image_projects VARCHAR(255),
+button_projects VARCHAR(255),
+PRIMARY KEY (id_Projects)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS footer ;
+CREATE TABLE footer (id_footer INT AUTO_INCREMENT NOT NULL,
+title_footer VARCHAR(255),
+name_text_footer VARCHAR(255),
+name_placeholder_footer VARCHAR(255),
+email_text_footer VARCHAR(255),
+email_placeholder_footer VARCHAR(255),
+message_text_footer VARCHAR(255),
+message_placeholder_footer VARCHAR(255),
+button_footer VARCHAR(255),
+PRIMARY KEY (id_footer)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS navbar ;
+CREATE TABLE navbar (id_navbar INT AUTO_INCREMENT NOT NULL,
+logo_navbar VARCHAR(255),
+menuburger_navbar VARCHAR(255),
+PRIMARY KEY (id_navbar)) ENGINE=InnoDB;
+
