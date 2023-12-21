@@ -4,7 +4,7 @@ export const TechStackCard = styled.div`
 display: inline-block;
 background-color: ${({ theme }) => theme.colors.secondary};
 color: #fff;
-padding: 0.3rem 1rem;
+padding: 0.3rem 2rem;
 border-radius: 5px;
 margin-top: 1rem;
 
@@ -22,7 +22,7 @@ justify-content: ${({ justify }) => justify};
 export const ProjectImage = styled.img`
 border: 1px solid #fff;
 width: 80%;
-height: 300px;
+height: 500px;
 object-fit: cover;
 border-radius: 10px;
 

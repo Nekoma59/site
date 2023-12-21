@@ -31,7 +31,7 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(#10ac84, #131c31);
+  background-image: linear-gradient(#106bac, #131c31);
   border-radius: 10px;
 }
 
@@ -60,7 +60,7 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #131c31;
+  background-color: #106bac;
   border-radius: 8px;
   border: 5px solid #ffffff;
   width: 80%;

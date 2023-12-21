@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-
-// Import Global Styles
-import {
-    FlexContainer,
-    PaddingContainer,
-    Container,
-    GreenText,
-} from '../../styles/Global.styled';
-
-// Import Navbar Styled
-import {
-    NavbarContainer,
-    Logo,
-    MenuIcon,
-} from '../../styles/Navbar.styled';
-
+import { FlexContainer, PaddingContainer, Container, GreenText } from '../../styles/Global.styled';
+import { NavbarContainer, Logo, MenuIcon } from '../../styles/Navbar.styled';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { theme } from "../../utils/Theme";
 import NavMenu from '../layouts/NavMenu';
+
+// Import your logo image
+import logoImage from '../../assets/header.png';
 
 const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
@@ -43,8 +32,7 @@ const Navbar = () => {
     };
 
     return (
-        <NavbarContainer
-            bgColor={sticky ? theme.colors.primary : 'transparent'}>
+        <NavbarContainer bgColor={sticky ? theme.colors.primary : 'transparent'}>
             <PaddingContainer
                 top="1.2rem"
                 bottom="1.2rem"
@@ -56,7 +44,7 @@ const Navbar = () => {
 
                         {/* left-logo */}
                         <Logo onClick={scrollToTop}>
-                            Do<GreenText>via</GreenText>
+                            <img src={logoImage} alt="Header Logo" />
                         </Logo>
 
                         {/* right-menu-icon */}
@@ -79,4 +67,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;

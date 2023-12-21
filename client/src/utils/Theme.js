@@ -1,11 +1,11 @@
 export const theme = {
     colors: {
-        primary: '#030d1c',
-        primary_light: '#131c31',
+        primary: '#ccc4c4',
+        primary_light: '#106bac',
         secondary: '#106bac',
         white: '#fff',
         black: '#000',
-        para_text_color: '#FAF5E9',
+        para_text_color: '#050400',
     },
     fonts: {
         family: 'DM Sans',

@@ -310,19 +310,25 @@ const MySkills = ({ IsInLogin }) => {
           </Heading>
 
           <Heading as="h2" size="h2" top="0.5rem">
-            Les <GreenText> Caractéristiques</GreenText>
+            Nos <GreenText> Services</GreenText>
           </Heading>
 
-          <ParaText id="desc" top="2rem" bottom="1.5rem">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          <ParaText
+  id="desc"
+  top="2rem"
+  bottom="1.5rem"
+  style={{ fontSize: '1.7rem', whiteSpace: 'pre-wrap' }}
+>
+  Bienvenue chez Dovia !
+  
+  Dites adieu aux problèmes d'eau dure. Nous installons rapidement, assurons une maintenance efficace, offrons des conseils directs, des analyses précises et des adoucisseurs écoénergétiques.
+  
+  Optez pour une eau sans tracas, contactez-nous dès maintenant.
+</ParaText>
 
 
 
 
-          </ParaText>
         </motion.div>
       </FlexContainer>
 

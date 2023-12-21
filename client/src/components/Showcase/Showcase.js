@@ -88,7 +88,7 @@ const Showcase = ({IsInLogin,setIsLogin}) => {
                         </>
                     ) : (
                         <>
-                            <Heading as="h4" size="h4">Bonjour !</Heading>
+                            <Heading as="h4" size="h4"></Heading>
 
                             <Heading
                                 as="h2"
