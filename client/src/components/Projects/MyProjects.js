@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub } from 'react-icons/fa';
 
 import {
     PaddingContainer,
@@ -26,10 +25,10 @@ const MyProjects = ({ IsInLogin }) => {
     const [projects, setProjects] = useState([]);
     const [editingProject, setEditingProject] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // État pour la boîte de dialogue
-    const [projectIdToDelete, setProjectIdToDelete] = useState(null); // État pour stocker l'ID du projet à supprimer
-    const [previewImageUrl, setPreviewImageUrl] = useState(''); // État pour stocker l'URL de l'image de prévisualisation
-    const [previewNewProjectImageUrl, setPreviewNewProjectImageUrl] = useState(''); // État pour stocker l'URL de l'image de prévisualisation du nouveau projet
+    const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+    const [projectIdToDelete, setProjectIdToDelete] = useState(null);
+    const [previewImageUrl, setPreviewImageUrl] = useState('');
+    const [previewNewProjectImageUrl, setPreviewNewProjectImageUrl] = useState('');
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -61,7 +60,6 @@ const MyProjects = ({ IsInLogin }) => {
         github_url: '',
     });
 
-    // Fonction pour annuler l'ajout de projet
     const handleCancelProject = () => {
         setNewProject({
             project_name: '',
@@ -71,11 +69,10 @@ const MyProjects = ({ IsInLogin }) => {
             project_url: '',
             github_url: '',
         });
-        setPreviewNewProjectImageUrl(''); // Réinitialisez l'état de la prévisualisation de l'image
+        setPreviewNewProjectImageUrl('');
         setShowAddForm(false);
     };
 
-    // Ajout d'un nouveau projet
     const handleProjectAdd = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/insertProjects', {
@@ -106,7 +103,6 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
-    // Modification d'un projet existant
     const handleProjectUpdate = async (updatedProject) => {
         try {
             const response = await fetch(
@@ -140,7 +136,6 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
-    // Supprimer un projet
     const handleProjectDelete = async (projectId) => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/deleteProjects/${projectId}`, {
@@ -148,7 +143,6 @@ const MyProjects = ({ IsInLogin }) => {
             });
 
             if (response.ok) {
-                // Supprimer le projet de la liste locale
                 const updatedProjects = projects.filter((project) => project.id !== projectId);
                 setProjects(updatedProjects);
             } else {
@@ -169,13 +163,11 @@ const MyProjects = ({ IsInLogin }) => {
         setPreviewImageUrl('');
     };
 
-    // Supprimer un projet avec confirmation
     const handleProjectDeleteWithConfirmation = (projectId) => {
         setProjectIdToDelete(projectId);
         setIsDeleteConfirmationOpen(true);
     };
 
-    // Fonction pour confirmer la suppression et effectuer la suppression réelle
     const confirmProjectDelete = async () => {
         if (projectIdToDelete) {
             await handleProjectDelete(projectIdToDelete);
@@ -184,18 +176,11 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
-    // Annuler la suppression
     const cancelProjectDelete = () => {
         setIsDeleteConfirmationOpen(false);
         setProjectIdToDelete(null);
     };
 
-    // URL du projet GitHub
-    const handleGitHubClick = (githubUrl) => {
-        window.open(githubUrl, '_blank');
-    };
-
-    // URL du projet GitHub
     const handleProjectClick = (projectUrl) => {
         window.open(projectUrl, '_blank');
     };
@@ -215,9 +200,7 @@ const MyProjects = ({ IsInLogin }) => {
                 initial="hidden"
                 whileInView="visible"
                 size="h4"
-            >
-                
-            </Heading>
+            ></Heading>
 
             <Heading
                 as={motion.h2}
@@ -226,13 +209,12 @@ const MyProjects = ({ IsInLogin }) => {
                 whileInView="visible"
                 size="h2"
             >
-                Nos <GreenText>Services</GreenText>
+                Nos <GreenText>Produits</GreenText>
             </Heading>
 
             {projects.map((project, index) => (
                 <PaddingContainer key={project.id} top="5rem" bottom="5rem">
                     {editingProject && editingProject.id === project.id ? (
-                        // Formulaire de modifications du projet
                         <motion.div className="edit-modal">
                             <div>
                                 <Heading as="h2" size="h2">
@@ -339,11 +321,9 @@ const MyProjects = ({ IsInLogin }) => {
                             </div>
                         </motion.div>
                     ) : (
-
-                        // Affiche les projets
                         <FlexContainer
-                        direction={index % 2 === 0 ? 'row-reverse' : 'row'}
-                        fullWidthChild
+                            direction={index % 2 === 0 ? 'row-reverse' : 'row'}
+                            fullWidthChild
                         >
                             <motion.div
                                 variants={
@@ -356,9 +336,6 @@ const MyProjects = ({ IsInLogin }) => {
                                     <Heading as="h3" size="h3" bottom="1rem">
                                         {project.project_name}
                                     </Heading>
-                                    <IconContainer color="blue" size="2rem" onClick={() => handleGitHubClick(project.github_url)}>
-                                        <FaGithub style={{ fontSize: '2rem' }} />
-                                    </IconContainer>
                                 </FlexContainer>
                                 <PaddingContainer top="lrem">
                                     <FlexContainer gap="1.5rem">
@@ -368,11 +345,21 @@ const MyProjects = ({ IsInLogin }) => {
                                 <ParaText top="1.5rem" bottom="2rem">
                                     {project.project_desc}
                                 </ParaText>
-                                <Button onClick={() => handleProjectClick(project.project_url)}>Visiter le site</Button>
+                                <Button onClick={() => handleProjectClick(project.project_url)}>
+                                    Documentation
+                                </Button>
                                 {IsInLogin && (
                                     <div>
-                                        <Button onClick={() => handleEditClick(project)}>Modifier un projet</Button>
-                                        <Button onClick={() => handleProjectDeleteWithConfirmation(project.id)}>Supprimer un projet</Button>
+                                        <Button onClick={() => handleEditClick(project)}>
+                                            Modifier un projet
+                                        </Button>
+                                        <Button
+                                            onClick={() =>
+                                                handleProjectDeleteWithConfirmation(project.id)
+                                            }
+                                        >
+                                            Supprimer un projet
+                                        </Button>
                                     </div>
                                 )}
                             </motion.div>
@@ -383,7 +370,7 @@ const MyProjects = ({ IsInLogin }) => {
                                 }
                                 initial="hidden"
                                 whileInView="visible"
-                                justify={index % 2 === 0 ? 'flex-start' : 'flex-end'} // Colle les images sur la droite de l'écran
+                                justify={index % 2 === 0 ? 'flex-start' : 'flex-end'}
                             >
                                 <ProjectImage
                                     src={project.project_img}
@@ -393,7 +380,6 @@ const MyProjects = ({ IsInLogin }) => {
                         </FlexContainer>
                     )}
 
-                    {/* Ajouter un projet */}
                     {IsInLogin && index === projects.length - 1 && (
                         <div className="column-layout centered-form">
                             <div>
@@ -488,7 +474,6 @@ const MyProjects = ({ IsInLogin }) => {
                         </div>
                     )}
 
-                    {/* Boîte de dialogue de confirmation de la suppression */}
                     {isDeleteConfirmationOpen && (
                         <div className="delete-confirmation-modal">
                             <div>
