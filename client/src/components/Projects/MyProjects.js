@@ -57,7 +57,7 @@ const MyProjects = ({ IsInLogin }) => {
         project_img: '',
         tech_stack: '',
         project_url: '',
-        github_url: '',
+        code_produit: '',
     });
 
     const handleCancelProject = () => {
@@ -67,7 +67,7 @@ const MyProjects = ({ IsInLogin }) => {
             project_img: '',
             tech_stack: '',
             project_url: '',
-            github_url: '',
+            code_produit: '',
         });
         setPreviewNewProjectImageUrl('');
         setShowAddForm(false);
@@ -92,7 +92,7 @@ const MyProjects = ({ IsInLogin }) => {
                     project_img: '',
                     tech_stack: '',
                     project_url: '',
-                    github_url: '',
+                    code_produit: '',
                 });
                 setShowAddForm(false);
             } else {
@@ -300,15 +300,15 @@ const MyProjects = ({ IsInLogin }) => {
                                         />
                                     </div>
                                     <div>
-                                        <label>URL du github:</label>
+                                        <label>Code produit:</label>
                                         <input
                                             type="text"
-                                            placeholder="URL du github"
-                                            value={editingProject.github_url}
+                                            placeholder="Code produit"
+                                            value={editingProject.code_produit}
                                             onChange={(e) =>
                                                 setEditingProject({
                                                     ...editingProject,
-                                                    github_url: e.target.value,
+                                                    code_produit: e.target.value,
                                                 })
                                             }
                                         />
@@ -455,15 +455,15 @@ const MyProjects = ({ IsInLogin }) => {
                                     })
                                 }
                             />
-                            <label>URL du github:</label>
+                            <label>Code produit:</label>
                             <input
                                 type="text"
-                                placeholder="URL du gihub"
-                                value={newProject.github_url}
+                                placeholder="Code produit"
+                                value={newProject.code_produit}
                                 onChange={(e) =>
                                     setNewProject({
                                         ...newProject,
-                                        github_url: e.target.value,
+                                        code_produit: e.target.value,
                                     })
                                 }
                             />
