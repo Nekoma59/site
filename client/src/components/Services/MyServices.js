@@ -31,7 +31,7 @@ const Myservices = ({ IsInLogin }) => {
   const [previewEditingServiceIconUrl, setPreviewEditingServiceIconUrl] = useState(''); // État pour afficher l'URL de l'icône en édition en prévisualisation
 
   useEffect(() => {
-    // Fonction pour charger les compétences depuis le backend
+    // Fonction pour charger les services depuis le backend
     const fetchservices = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/getservices');
@@ -53,7 +53,7 @@ const Myservices = ({ IsInLogin }) => {
     icon: '',
   });
 
-  // Fonction pour ajouter une compétence
+  // Fonction pour ajouter un service
   const handleServiceAdd = async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/insertservices', {
@@ -80,7 +80,7 @@ const Myservices = ({ IsInLogin }) => {
     }
   };
 
-  // Fonction pour mettre à jour une compétence
+  // Fonction pour mettre à jour un service
   const handleServiceUpdate = async (updatedService) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/updateservices/${updatedService.id}`, {
@@ -105,7 +105,7 @@ const Myservices = ({ IsInLogin }) => {
     }
   };
 
-  // Fonction pour supprimer une compétence
+  // Fonction pour supprimer un service
   const handleServiceDelete = async (ServiceId) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/deleteservices/${ServiceId}`, {

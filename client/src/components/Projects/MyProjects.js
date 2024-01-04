@@ -30,6 +30,7 @@ const MyProjects = ({ IsInLogin }) => {
     const [previewImageUrl, setPreviewImageUrl] = useState('');
     const [previewNewProjectImageUrl, setPreviewNewProjectImageUrl] = useState('');
 
+//Fetch des projets//
     useEffect(() => {
         const fetchProjects = async () => {
             try {
@@ -72,7 +73,7 @@ const MyProjects = ({ IsInLogin }) => {
         setPreviewNewProjectImageUrl('');
         setShowAddForm(false);
     };
-
+    // Ajout d'un projet//
     const handleProjectAdd = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/insertProjects', {
@@ -103,6 +104,7 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
+    // Modification d'un projet//
     const handleProjectUpdate = async (updatedProject) => {
         try {
             const response = await fetch(
@@ -136,6 +138,7 @@ const MyProjects = ({ IsInLogin }) => {
         }
     };
 
+    //Supprimer un projet //
     const handleProjectDelete = async (projectId) => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/deleteProjects/${projectId}`, {
