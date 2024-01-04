@@ -82,7 +82,7 @@ const Showcase = ({IsInLogin,setIsLogin}) => {
                     {isAdmin ? (
                         <>
                             <Heading as="h2" size="h2">
-                            Bienvenue, <GreenText>Maître.</GreenText>
+                            Bienvenue, <GreenText>Admin.</GreenText>
                             </Heading>
                             {/* Supprimez les autres éléments de texte lorsque l'utilisateur est un admin */}
                         </>
@@ -109,7 +109,7 @@ const Showcase = ({IsInLogin,setIsLogin}) => {
                             </Heading>
 
                             <ParaText as="p" top="2rem" bottom="4rem">
-                            Une entreprise 100% honnête avec un super boss et une main-d'œuvre heureuse.
+                            Vente et Installation d'adoucisseurs dans tout le nord de la France.
                             </ParaText>
                         </>
                     )}

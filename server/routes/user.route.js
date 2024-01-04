@@ -3,13 +3,13 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 
 // Récuperer les compétences
-router.get('/getSkills', userController.getAllSkills);
+router.get('/getServices', userController.getAllServices);
 // Inserer une compétence
-router.post('/insertSkills', userController.insertSkills);
+router.post('/insertServices', userController.insertServices);
 // Modifier une compétence
-router.put('/updateSkills/:id', userController.updateSkills);
+router.put('/updateServices/:id', userController.updateServices);
 // Supprimer une compétence
-router.delete('/deleteSkills/:id', userController.deleteSkills);
+router.delete('/deleteServices/:id', userController.deleteServices);
 
 // Récuperer les projets
 router.get('/getProjects', userController.getAllProjects);

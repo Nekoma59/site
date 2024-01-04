@@ -7,7 +7,7 @@ export const navLinks = [
     {
         id: 1,
         name: 'Nos Services',
-        href: 'Skills'
+        href: 'Service'
     },
     {
         id: 2,

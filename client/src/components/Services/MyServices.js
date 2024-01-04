@@ -12,34 +12,32 @@ import {
   Button,
 } from '../../styles/Global.styled';
 
-// Import My Skills styles
-import {
-  SkillsCardContainer,
-  SkillsCard,
-} from '../../styles/MySkills.styled';
+// Import My services styles
+import { ServicesCardContainer, ServicesCard } from '../../styles/MyServices.styled';
+
 
 import {
   fadeInLeftVariant,
   fadeInRightVariant,
 } from '../../utils/Variants';
 
-const MySkills = ({ IsInLogin }) => {
-  const [skills, setSkills] = useState([]);
-  const [editingSkillId, setEditingSkillId] = useState(null);
+const Myservices = ({ IsInLogin }) => {
+  const [services, setservices] = useState([]);
+  const [editingServiceId, setEditingServiceId] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // État pour la boîte de dialogue
-  const [skillIdToDelete, setSkillIdToDelete] = useState(null); // État pour stocker l'ID de la compétence à supprimer
-  const [previewNewSkillIconUrl, setPreviewNewSkillIconUrl] = useState(''); // État pour afficher l'URL de l'icône en prévisualisation
-  const [previewEditingSkillIconUrl, setPreviewEditingSkillIconUrl] = useState(''); // État pour afficher l'URL de l'icône en édition en prévisualisation
+  const [ServiceIdToDelete, setServiceIdToDelete] = useState(null); // État pour stocker l'ID de la compétence à supprimer
+  const [previewNewServiceIconUrl, setPreviewNewServiceIconUrl] = useState(''); // État pour afficher l'URL de l'icône en prévisualisation
+  const [previewEditingServiceIconUrl, setPreviewEditingServiceIconUrl] = useState(''); // État pour afficher l'URL de l'icône en édition en prévisualisation
 
   useEffect(() => {
     // Fonction pour charger les compétences depuis le backend
-    const fetchSkills = async () => {
+    const fetchservices = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/getSkills');
+        const response = await fetch('http://127.0.0.1:8000/api/getservices');
         if (response.ok) {
           const data = await response.json();
-          setSkills(data);
+          setservices(data);
         } else {
           console.error('Réponse HTTP non OK :', response.status, response.statusText);
         }
@@ -47,30 +45,30 @@ const MySkills = ({ IsInLogin }) => {
         console.error('Erreur lors du chargement des compétences :', error.message);
       }
     };
-    fetchSkills();
+    fetchservices();
   }, []);
 
-  const [newSkill, setNewSkill] = useState({
-    tech: '',
+  const [newService, setNewService] = useState({
+    service: '',
     icon: '',
   });
 
   // Fonction pour ajouter une compétence
-  const handleSkillAdd = async () => {
+  const handleServiceAdd = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/insertSkills', {
+      const response = await fetch('http://127.0.0.1:8000/api/insertservices', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newSkill),
+        body: JSON.stringify(newService),
       });
 
       if (response.ok) {
-        const addedSkill = await response.json();
-        setSkills((prevSkills) => [...prevSkills, addedSkill]);
-        setNewSkill({
-          tech: '',
+        const addedService = await response.json();
+        setservices((prevservices) => [...prevservices, addedService]);
+        setNewService({
+          service: '',
           icon: '',
         });
         setShowAddForm(false); // Fermez le formulaire après l'ajout
@@ -83,22 +81,22 @@ const MySkills = ({ IsInLogin }) => {
   };
 
   // Fonction pour mettre à jour une compétence
-  const handleSkillUpdate = async (updatedSkill) => {
+  const handleServiceUpdate = async (updatedService) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/updateSkills/${updatedSkill.id}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/updateservices/${updatedService.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedSkill),
+        body: JSON.stringify(updatedService),
       });
 
       if (response.ok) {
-        const updatedSkills = skills.map((skill) =>
-          skill.id === updatedSkill.id ? updatedSkill : skill
+        const updatedservices = services.map((Service) =>
+          Service.id === updatedService.id ? updatedService : Service
         );
-        setSkills(updatedSkills);
-        setEditingSkillId(null);
+        setservices(updatedservices);
+        setEditingServiceId(null);
       } else {
         console.error('Erreur lors de la mise à jour de la compétence');
       }
@@ -108,15 +106,15 @@ const MySkills = ({ IsInLogin }) => {
   };
 
   // Fonction pour supprimer une compétence
-  const handleSkillDelete = async (skillId) => {
+  const handleServiceDelete = async (ServiceId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/deleteSkills/${skillId}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/deleteservices/${ServiceId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        const updatedSkills = skills.filter((skill) => skill.id !== skillId);
-        setSkills(updatedSkills);
+        const updatedservices = services.filter((Service) => Service.id !== ServiceId);
+        setservices(updatedservices);
       } else {
         console.error('Erreur lors de la suppression de la compétence');
       }
@@ -126,43 +124,43 @@ const MySkills = ({ IsInLogin }) => {
   };
 
   // Supprimer une compétence avec confirmation
-  const handleSkillDeleteWithConfirmation = (skillId) => {
-    setSkillIdToDelete(skillId);
+  const handleServiceDeleteWithConfirmation = (ServiceId) => {
+    setServiceIdToDelete(ServiceId);
     setIsDeleteConfirmationOpen(true);
   };
 
   // Fonction pour confirmer la suppression et effectuer la suppression réelle
-  const confirmSkillDelete = async () => {
-    if (skillIdToDelete) {
-      await handleSkillDelete(skillIdToDelete);
+  const confirmServiceDelete = async () => {
+    if (ServiceIdToDelete) {
+      await handleServiceDelete(ServiceIdToDelete);
       setIsDeleteConfirmationOpen(false);
-      setSkillIdToDelete(null);
+      setServiceIdToDelete(null);
     }
   };
 
   // Annuler la suppression
-  const cancelSkillDelete = () => {
+  const cancelServiceDelete = () => {
     setIsDeleteConfirmationOpen(false);
-    setSkillIdToDelete(null);
+    setServiceIdToDelete(null);
   };
 
   const handleCancelUpdate = () => {
-    setEditingSkillId(null); // Réinitialise l'état d'édition
+    setEditingServiceId(null); // Réinitialise l'état d'édition
   };
 
   useEffect(() => {
     // Mettez à jour l'aperçu de l'icône lorsque l'ID de compétence en édition change
-    if (editingSkillId !== null) {
-      const editedSkill = skills.find((skill) => skill.id === editingSkillId);
-      if (editedSkill) {
-        setPreviewEditingSkillIconUrl(editedSkill.icon);
+    if (editingServiceId !== null) {
+      const editedService = services.find((Service) => Service.id === editingServiceId);
+      if (editedService) {
+        setPreviewEditingServiceIconUrl(editedService.icon);
       }
     }
-  }, [editingSkillId, skills]);
+  }, [editingServiceId, services]);
 
   return (
     <PaddingContainer
-      id="Skills"
+      id="services"
       top="10%"
       bottom="10%"
       responsiveLeft="1rem"
@@ -174,22 +172,22 @@ const MySkills = ({ IsInLogin }) => {
         fullWidthChild
       >
         {/* left section */}
-        <SkillsCardContainer
-          id="skillIcon"
+        <ServicesCardContainer
+          id="ServiceIcon"
           as={motion.div}
           variants={fadeInLeftVariant}
           initial="hidden"
           whileInView="visible"
         >
-          {skills.map((skill) => (
-            <SkillsCard key={skill.id}>
-              {editingSkillId === skill.id ? (
-                <form className='form-skill'
+          {services.map((Service) => (
+            <ServicesCard key={Service.id}>
+              {editingServiceId === Service.id ? (
+                <form className='form-Service'
                   onSubmit={(e) => {
                     e.preventDefault();
-                    handleSkillUpdate({
-                      id: skill.id,
-                      tech: e.target.tech.value,
+                    handleServiceUpdate({
+                      id: Service.id,
+                      service: e.target.service.value,
                       icon: e.target.icon.value,
                     });
                   }}
@@ -199,24 +197,24 @@ const MySkills = ({ IsInLogin }) => {
                     <input
                       type="text"
                       placeholder="Nom de la compétence"
-                      name="tech"
-                      defaultValue={skill.tech}
+                      name="service"
+                      defaultValue={Service.service}
                     />
                     <label>URL de l'icône</label>
                     <input
                       type="text"
                       placeholder="Url de l'icône"
                       name="icon"
-                      defaultValue={skill.icon}
+                      defaultValue={Service.icon}
                       onInput={(e) => {
-                        setEditingSkillId(skill.id); // Mettez à jour l'état d'édition
-                        setPreviewEditingSkillIconUrl(e.target.value); // Mettez à jour l'aperçu de l'icône en temps réel
+                        setEditingServiceId(Service.id); // Mettez à jour l'état d'édition
+                        setPreviewEditingServiceIconUrl(e.target.value); // Mettez à jour l'aperçu de l'icône en temps réel
                       }}
                     />
                   </div>
-                  {previewEditingSkillIconUrl && (
+                  {previewEditingServiceIconUrl && (
                     <img
-                      src={previewEditingSkillIconUrl}
+                      src={previewEditingServiceIconUrl}
                       alt="IconPreviewEdit"
                       className="icon-preview"
                     />
@@ -228,23 +226,23 @@ const MySkills = ({ IsInLogin }) => {
                 <>
                   <IconContainer style={{ fontSize: '1rem' }} color="blue">
                     <img
-                      src={skill.icon} // Utilisez l'URL de l'image stockée dans la base de données
-                      alt={skill.tech} // Utilisez le nom de la compétence comme texte alternatif
+                      src={Service.icon} // Utilisez l'URL de l'image stockée dans la base de données
+                      alt={Service.service} // Utilisez le nom de la compétence comme texte alternatif
                       className="icon-preview"
                     />
                   </IconContainer>
                   <Heading as="h4" size="h4">
-                    {skill.tech}
+                    {Service.service}
                   </Heading>
                   {IsInLogin && (
-                    <Button onClick={() => setEditingSkillId(skill.id)}>Modifier</Button>
+                    <Button onClick={() => setEditingServiceId(Service.id)}>Modifier</Button>
                   )}
                   {IsInLogin && (
-                    <Button onClick={() => handleSkillDeleteWithConfirmation(skill.id)}>Supprimer</Button>
+                    <Button onClick={() => handleServiceDeleteWithConfirmation(Service.id)}>Supprimer</Button>
                   )}
                 </>
               )}
-            </SkillsCard>
+            </ServicesCard>
           ))}
 
 
@@ -253,11 +251,11 @@ const MySkills = ({ IsInLogin }) => {
 
             <div>
               {showAddForm ? (
-                <SkillsCard>
-                  <form className='form-skill'
+                <servicesCard>
+                  <form className='form-Service'
                     onSubmit={(e) => {
                       e.preventDefault();
-                      handleSkillAdd();
+                      handleServiceAdd();
                     }}
                   >
                     <div className="input-text">
@@ -265,43 +263,43 @@ const MySkills = ({ IsInLogin }) => {
                     <input
                       type="text"
                       placeholder="Nom de la compétence"
-                      value={newSkill.tech}
-                      onChange={(e) => setNewSkill({ ...newSkill, tech: e.target.value })}
+                      value={newService.service}
+                      onChange={(e) => setNewService({ ...newService, service: e.target.value })}
                     />
                     <label>Url de l'icône</label>
                     <input
                       type="text"
                       placeholder="Url de l'icône"
-                      value={newSkill.icon}
+                      value={newService.icon}
                       onInput={(e) => {
-                        setNewSkill({
-                          ...newSkill,
+                        setNewService({
+                          ...newService,
                           icon: e.target.value,
                         });
-                        setPreviewNewSkillIconUrl(e.target.value);
+                        setPreviewNewServiceIconUrl(e.target.value);
                       }}
                     />
                     </div>
-                    {previewNewSkillIconUrl && (
+                    {previewNewServiceIconUrl && (
                       <img
-                        src={previewNewSkillIconUrl}
+                        src={previewNewServiceIconUrl}
                         alt="IconPreview"
                         className="icon-preview"
                       />
                     )}
                     <Button type="submit" onClick={() => {
-                      handleSkillAdd();
-                    }}>Ajouter un Skill</Button>
+                      handleServiceAdd();
+                    }}>Ajouter un Service</Button>
                     <Button onClick={() => setShowAddForm(false)}>Fermer</Button>
                   </form>
-                </SkillsCard>
+                </servicesCard>
               ) : (
                 <Button onClick={() => setShowAddForm(true)}>Ajouter</Button>
               )}
             </div>
           )}
 
-        </SkillsCardContainer>
+        </ServicesCardContainer>
 
         {/* right-section */}
         <motion.div variants={fadeInRightVariant} initial="hidden" whileInView="visible">
@@ -338,8 +336,8 @@ const MySkills = ({ IsInLogin }) => {
           <div>
             <p>Voulez-vous vraiment supprimer cette compétence ?</p>
             <div>
-              <Button onClick={confirmSkillDelete}>Oui</Button>
-              <Button onClick={cancelSkillDelete}>Annuler</Button>
+              <Button onClick={confirmServiceDelete}>Oui</Button>
+              <Button onClick={cancelServiceDelete}>Annuler</Button>
             </div>
           </div>
         </div>
@@ -348,4 +346,4 @@ const MySkills = ({ IsInLogin }) => {
   );
 };
 
-export default MySkills;
+export default Myservices;

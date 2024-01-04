@@ -11,19 +11,19 @@ const conn = mysql.createConnection({
     database: process.env.DB_NAME,
 })
 
-// SKILLS
-const insertSkills = (req, res) => {
+// SERVICES
+const insertServices = (req, res) => {
     // Extration des données du corps de la requete
-    const { tech, icon } = req.body
+    const { service, icon } = req.body
     console.log(req.body)
 
-    if (!tech, !icon) {
+    if (!service, !icon) {
         return res.status(400).json({
             error: 'Données incorrect'
         })
     }
-    const query = 'INSERT INTO `skills` (`tech`, `icon`) VALUES (?,?)';
-    conn.query(query, [tech, icon], (err) => {
+    const query = 'INSERT INTO `services` (`service`, `icon`) VALUES (?,?)';
+    conn.query(query, [service, icon], (err) => {
         if (err) {
             console.error('erreur')
             res.status(500).json({ error: 'erreur' })
@@ -33,9 +33,9 @@ const insertSkills = (req, res) => {
     })
 }
 
-const getAllSkills = (req, res) => {
+const getAllServices = (req, res) => {
 
-    const query = 'SELECT * FROM skills';
+    const query = 'SELECT * FROM services';
     conn.query(query, (err, result) => {
         if (err) {
             console.error("Erreur lors de la récupération des données :" + err);
@@ -46,28 +46,28 @@ const getAllSkills = (req, res) => {
     })
 }
 
-const updateSkills = (req, res) => {
-    const { tech, icon } = req.body;
+const updateServices = (req, res) => {
+    const { service, icon } = req.body;
     const id = req.params.id;
 
-    if (!tech, !icon) {
+    if (!service, !icon) {
         return res.status(400).json({
             error: 'Données incorrectes'
         });
     }
 
-    const query = 'UPDATE `skills` SET `tech` = ?, `icon` = ? Where id = ?';
-    conn.query(query, [tech, icon, id], (err) => {
+    const query = 'UPDATE `services` SET `service` = ?, `icon` = ? Where id = ?';
+    conn.query(query, [service, icon, id], (err) => {
         if (err) {
             console.error("Erreur lors de la modification des données :" + err);
             res.status(500).json({ error: "Erreur lors de la modification des données" });
         } else {
-            res.status(200).json({ message: 'Skills modifié' });
+            res.status(200).json({ message: 'Services modifié' });
         }
     });
 };
 
-const deleteSkills = (req, res) => {
+const deleteServices = (req, res) => {
 
     const userId = req.params.id
 
@@ -77,17 +77,17 @@ const deleteSkills = (req, res) => {
         })
     }
 
-    let query = `DELETE FROM skills WHERE id = ${userId}`
+    let query = `DELETE FROM services WHERE id = ${userId}`
     conn.query(query, (err) => {
         if (err) {
             console.error("Erreur lors de la suppression des données :" + err);
             res.status(500).json({ error: "Erreur lors de la suppression des données" })
         } else {
-            res.status(200).json({ message: 'Skills supprimé' })
+            res.status(200).json({ message: 'Service supprimé' })
         }
     })
 }
-// FIN SKILLS
+// FIN SERVICES 
 
 
 // Projet
@@ -163,15 +163,15 @@ const deleteProjects = (req, res) => {
 // Fin Projet
 
 module.exports = {
-    getAllSkills,
+    getAllServices,
     getAllProjects,
 
-    insertSkills,
+    insertServices,
     insertProjects,
 
-    updateSkills,
+    updateServices,
     updateProjects,
 
-    deleteSkills,
+    deleteServices,
     deleteProjects,
 }

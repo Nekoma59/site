@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SkillsCardContainer = styled.div`
+export const ServicesCardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales par défaut */
   grid-gap: 1rem;
@@ -12,7 +12,7 @@ export const SkillsCardContainer = styled.div`
   }
 `;
 
-export const SkillsCard = styled.div`
+export const ServicesCard = styled.div`
   width: 100%;
   border: 1px solid #fff;
   padding: 1rem 0;
