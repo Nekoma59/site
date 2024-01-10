@@ -14,26 +14,24 @@ const connectDb = require('./config/db')
 // Middlewares.
 const app = express();
 
-// Middleware pour traiter le corps des requêtes HTTP au format JSON
+// Middleware for parsing JSON requests
 app.use(express.json());
-
-// Middleware bodyParser pour analyser le corps des requêtes HTTP au format JSON
-app.use(bodyParser.json());
 
 // Middleware CookieParser
 app.use(cookieParser());
 
-// Middleware bodyParser pour analyser le corps des requêtes HTTP avec les données de formulaire URL-encoded
+// Middleware for parsing URL-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middleware cors pour gérer les requêtes Cross-Origin Resource Sharing (CORS)
+// Middleware for CORS
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3000', // Adjust this to match your frontend application's address
     optionsSuccessStatus: 200
 }));
 
-// Routes
+// Routes with the '/api' prefix
 app.use('/api', authRoutes, userRoutes);
+
 
 // Configuration et lancement du serveur
 const start = async () => {

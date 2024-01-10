@@ -17,14 +17,12 @@ conn.connect((err) => {
     }
 });
 
-const register = (req, res) => {
+const register = async (req, res) => {
     const { email, password } = req.body;
 
     const checkEmailQuery = 'SELECT * FROM admin WHERE email_admin = ?';
-    conn.query(checkEmailQuery, [email], async (checkErr, results) => {
-        if (checkErr) {
-            return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'adresse e-mail' });
-        }
+    try {
+        const results = await query(checkEmailQuery, [email]);
 
         if (results.length > 0) {
             return res.status(400).json({ message: 'Cette adresse e-mail est déjà enregistrée.' });
@@ -35,33 +33,24 @@ const register = (req, res) => {
             return res.status(400).json({ message: 'Le mot de passe ne respecte pas les critères de sécurité' });
         }
 
-        try {
-            const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-            const query = 'INSERT INTO admin (email_admin, password_admin) VALUES (?, ?)';
-            conn.query(query, [email, hashedPassword], (err) => {
-                if (err) {
-                    console.error('Erreur lors de l\'insertion des données : ' + err);
-                    res.status(500).json({ error: 'Erreur lors de l\'insertion des données' });
-                } else {
-                    res.status(200).json({ message: 'Utilisateur enregistré' });
-                }
-            });
-        } catch (hashError) {
-            console.error('Erreur lors du hashage du mot de passe : ' + hashError);
-            res.status(500).json({ error: 'Erreur lors du hashage du mot de passe' });
-        }
-    });
+        const insertQuery = 'INSERT INTO admin (email_admin, password_admin) VALUES (?, ?)';
+        await query(insertQuery, [email, hashedPassword]);
+
+        res.status(200).json({ message: 'Utilisateur enregistré' });
+    } catch (error) {
+        console.error('Erreur lors de l\'inscription :', error);
+        res.status(500).json({ error: 'Erreur lors de l\'inscription' });
+    }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
     const { email, password } = req.body;
 
     const checkUserQuery = 'SELECT * FROM admin WHERE email_admin = ?';
-    conn.query(checkUserQuery, [email], async (checkErr, results) => {
-        if (checkErr) {
-            return res.status(500).json({ success: false, message: 'Erreur lors de la recherche de l\'utilisateur' });
-        }
+    try {
+        const results = await query(checkUserQuery, [email]);
 
         if (results.length === 0) {
             return res.status(401).json({ message: 'Utilisateur non trouvé' });
@@ -76,12 +65,27 @@ const login = (req, res) => {
         }
 
         res.status(200).json({ message: 'Connexion réussie' });
-    });
+    } catch (error) {
+        console.error('Erreur lors de la connexion :', error);
+        res.status(500).json({ error: 'Erreur lors de la connexion' });
+    }
 };
 
 const dashboard = (req, res) => {
     // Your dashboard logic here
     res.status(200).json({ message: 'Dashboard route reached' });
+};
+
+const query = (sql, values) => {
+    return new Promise((resolve, reject) => {
+        conn.query(sql, values, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
 };
 
 module.exports = { register, login, dashboard };

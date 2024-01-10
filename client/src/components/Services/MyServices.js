@@ -193,10 +193,10 @@ const Myservices = ({ IsInLogin }) => {
                   }}
                 >
                   <div className="input-text">
-                    <label>Nom de la compétence</label>
+                    <label>Nom du service</label>
                     <input
                       type="text"
-                      placeholder="Nom de la compétence"
+                      placeholder="Nom du service"
                       name="service"
                       defaultValue={Service.service}
                     />
@@ -259,10 +259,10 @@ const Myservices = ({ IsInLogin }) => {
                     }}
                   >
                     <div className="input-text">
-                    <label>Nom de la compétence</label>
+                    <label>Nom du service</label>
                     <input
                       type="text"
-                      placeholder="Nom de la compétence"
+                      placeholder="Nom du service"
                       value={newService.service}
                       onChange={(e) => setNewService({ ...newService, service: e.target.value })}
                     />
@@ -334,7 +334,7 @@ const Myservices = ({ IsInLogin }) => {
       {isDeleteConfirmationOpen && (
         <div className="delete-confirmation-modal">
           <div>
-            <p>Voulez-vous vraiment supprimer cette compétence ?</p>
+            <p>Voulez-vous vraiment supprimer ce service? ?</p>
             <div>
               <Button onClick={confirmServiceDelete}>Oui</Button>
               <Button onClick={cancelServiceDelete}>Annuler</Button>

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
 
-// Récuperer les compétences
+// Récuperer les services
 router.get('/getServices', userController.getAllServices);
 // Inserer une compétence
 router.post('/insertServices', userController.insertServices);
